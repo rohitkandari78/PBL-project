@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// ---------------- USER STRUCT ----------------
+struct User {
+    char name[50];
+    int age;
+    float weight;
+    float height;
+};
+
+// ---------------- FITNESS STRUCT ----------------
+struct Fitness {
+    int steps;
+    float caloriesConsumed;
+    float caloriesBurned;
+    float waterIntake;
+    float sleepHours;
+    int exerciseMinutes;
+};
+
+// ---------------- FUNCTION DECLARATIONS ----------------
+float calculateCaloriesBurned(int steps, float weight);
+float calculateBMI(float weight, float height);
+void displayBMICategory(float bmi);
+void displaySummary(struct User u, struct Fitness f);
+void saveToFile(struct User u, struct Fitness f);
+void viewHistory();
+void resetData(struct Fitness *f);
+void setGoals(int *stepGoal, float *waterGoal);
+void weeklyStats();
+void login();
+void checkGoals(struct Fitness f, int stepGoal, float waterGoal);
+
+// ---------------- CALCULATE CALORIES ----------------
+float calculateCaloriesBurned(int steps, float weight) {
+    return steps * 0.04 * (weight / 70.0);
+}
+
+// ---------------- BMI ----------------
+float calculateBMI(float weight, float height) {
+    if (height <= 0) return 0;
+    return weight / (height * height);
+}
+
+// ---------------- BMI CATEGORY ----------------
+void displayBMICategory(float bmi) {
+    printf("BMI: %.2f\n", bmi);
