@@ -100,3 +100,11 @@ void saveToFile(struct User u, struct Fitness f) {
     fprintf(fp, "Steps: %d\n", f.steps);
     fprintf(fp, "Calories Consumed: %.2f\n", f.caloriesConsumed);
     fprintf(fp, "Calories Burned: %.2f\n", f.caloriesBurned);
+ fprintf(fp, "Water: %.2f L\n", f.waterIntake);
+    fprintf(fp, "Sleep: %.2f hrs\n", f.sleepHours);
+    fprintf(fp, "Exercise: %d mins\n", f.exerciseMinutes);
+    fprintf(fp, "-------------------\n");
+
+    fclose(fp);
+    printf("Saved successfully!\n");
+}
