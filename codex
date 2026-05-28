@@ -56,3 +56,47 @@ if (bmi < 18.5)
     else
         printf("Category: Obese\n");
 }
+
+
+// ---------------- SUMMARY ----------------
+void displaySummary(struct User u, struct Fitness f) {
+    printf("\n===== SUMMARY =====\n");
+    printf("Name: %s\n", u.name);
+    printf("Age: %d\n", u.age);
+
+    float bmi = calculateBMI(u.weight, u.height);
+    displayBMICategory(bmi);
+
+    printf("Steps: %d\n", f.steps);
+    printf("Calories Consumed: %.2f kcal\n", f.caloriesConsumed);
+    printf("Calories Burned: %.2f kcal\n", f.caloriesBurned);
+    printf("Water Intake: %.2f L\n", f.waterIntake);
+    printf("Sleep Hours: %.2f hrs\n", f.sleepHours);
+    printf("Exercise Minutes: %d mins\n", f.exerciseMinutes);
+
+    float net = f.caloriesConsumed - f.caloriesBurned;
+    printf("Net Calories: %.2f kcal\n", net);
+
+    if (net > 0)
+        printf("Tip: You are in a calorie surplus.\n");
+    else if (net < 0)
+        printf("Tip: You are in a calorie deficit.\n");
+    else
+        printf("Tip: Calorie balance is perfect!\n");
+}
+
+
+
+// ---------------- SAVE FILE ----------------
+void saveToFile(struct User u, struct Fitness f) {
+    FILE *fp = fopen("fitness_log.txt", "a");
+
+    if (fp == NULL) {
+        printf("Error saving file!\n");
+        return;
+    }
+
+    fprintf(fp, "Name: %s\n", u.name);
+    fprintf(fp, "Steps: %d\n", f.steps);
+    fprintf(fp, "Calories Consumed: %.2f\n", f.caloriesConsumed);
+    fprintf(fp, "Calories Burned: %.2f\n", f.caloriesBurned);
