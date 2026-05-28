@@ -149,3 +149,21 @@ void setGoals(int *stepGoal, float *waterGoal) {
 
     printf("Goals updated! Step goal: %d | Water goal: %.1f L\n", *stepGoal, *waterGoal);
 }
+
+// ---------------- CHECK GOALS ----------------
+void checkGoals(struct Fitness f, int stepGoal, float waterGoal) {
+    printf("\n===== GOAL PROGRESS =====\n");
+
+    printf("Steps: %d / %d ", f.steps, stepGoal);
+    if (f.steps >= stepGoal)
+        printf("[ACHIEVED!]\n");
+    else
+        printf("(%d remaining)\n", stepGoal - f.steps);
+
+    printf("Water: %.2f / %.2f L ", f.waterIntake, waterGoal);
+    if (f.waterIntake >= waterGoal)
+        printf("[ACHIEVED!]\n");
+    else
+        printf("(%.2f L remaining)\n", waterGoal - f.waterIntake);
+}
+
