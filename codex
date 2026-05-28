@@ -108,3 +108,22 @@ void saveToFile(struct User u, struct Fitness f) {
     fclose(fp);
     printf("Saved successfully!\n");
 }
+
+// ---------------- VIEW HISTORY ----------------
+void viewHistory() {
+    FILE *fp = fopen("fitness_log.txt", "r");
+    char ch;
+
+    if (fp == NULL) {
+        printf("No history found!\n");
+        return;
+    }
+
+    printf("\n===== HISTORY =====\n");
+    while ((ch = fgetc(fp)) != EOF) {
+        putchar(ch);
+    }
+
+    fclose(fp);
+}
+
