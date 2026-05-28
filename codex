@@ -127,3 +127,25 @@ void viewHistory() {
     fclose(fp);
 }
 
+// ---------------- RESET ----------------
+void resetData(struct Fitness *f) {
+    f->steps = 0;
+    f->caloriesConsumed = 0;
+    f->caloriesBurned = 0;
+    f->waterIntake = 0;
+    f->sleepHours = 0;
+    f->exerciseMinutes = 0;
+
+    printf("Data reset done!\n");
+}
+
+// ---------------- GOALS ----------------
+void setGoals(int *stepGoal, float *waterGoal) {
+    printf("Enter step goal: ");
+    scanf("%d", stepGoal);
+
+    printf("Enter water goal (L): ");
+    scanf("%f", waterGoal);
+
+    printf("Goals updated! Step goal: %d | Water goal: %.1f L\n", *stepGoal, *waterGoal);
+}
