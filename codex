@@ -167,3 +167,39 @@ void checkGoals(struct Fitness f, int stepGoal, float waterGoal) {
         printf("(%.2f L remaining)\n", waterGoal - f.waterIntake);
 }
 
+// ---------------- WEEKLY STATS ----------------
+void weeklyStats() {
+    int weeklySteps[7] = {8000, 9000, 7500, 10000, 11000, 6000, 5000};
+    const char *days[7] = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+    int total = 0;
+
+    printf("\n===== WEEKLY STATS =====\n");
+    for (int i = 0; i < 7; i++) {
+        printf("%s: %5d steps ", days[i], weeklySteps[i]);
+        // Simple bar chart
+        int bars = weeklySteps[i] / 1000;
+        for (int j = 0; j < bars; j++) printf("|");
+        printf("\n");
+        total += weeklySteps[i];
+    }
+    printf("Total : %d steps\n", total);
+    printf("Daily Avg: %d steps\n", total / 7);
+}
+
+// ---------------- LOGIN ----------------
+void login() {
+    char username[20], password[20];
+
+    printf("Enter username: ");
+    scanf("%s", username);
+
+    printf("Enter password: ");
+    scanf("%s", password);
+
+    if (strcmp(username, "admin") == 0 && strcmp(password, "1234") == 0)
+        printf("Login successful! Welcome, %s.\n", username);
+    else {
+        printf("Wrong username or password!\n");
+        exit(0);
+    }
+}
