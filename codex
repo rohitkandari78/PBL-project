@@ -203,3 +203,148 @@ void login() {
         exit(0);
     }
 }
+// ---------------- MAIN ----------------
+int main() {
+    struct User user;
+    struct Fitness fit;
+
+    int choice;
+    int stepGoal = 10000;
+    float waterGoal = 2.5;
+
+    printf("===== FITNESS TRACKER =====\n");
+    login();
+
+    // Initialize fitness data
+    fit.steps = 0;
+    fit.caloriesConsumed = 0;
+    fit.caloriesBurned = 0;
+    fit.waterIntake = 0;
+    fit.sleepHours = 0;
+    fit.exerciseMinutes = 0;
+
+    printf("\n--- User Profile Setup ---\n");
+    printf("Enter name: ");
+    scanf(" %[^\n]", user.name);
+
+    printf("Age: ");
+    scanf("%d", &user.age);
+
+    printf("Weight (kg): ");
+    scanf("%f", &user.weight);
+
+    printf("Height (m): ");
+    scanf("%f", &user.height);
+
+    printf("\nProfile saved! Hello, %s!\n", user.name);
+
+    while (1) {
+        printf("\n===== MENU =====\n");
+        printf(" 1. Add Steps\n");
+        printf(" 2. Add Calories Consumed\n");
+        printf(" 3. Add Water Intake\n");
+        printf(" 4. Add Sleep Hours\n");
+        printf(" 5. Add Exercise Minutes\n");
+        printf(" 6. Show Summary\n");
+        printf(" 7. Save Data\n");
+        printf(" 8. View History\n");
+        printf(" 9. Reset Data\n");
+        printf("10. Set Goals\n");
+        printf("11. Check Goal Progress\n");
+        printf("12. Weekly Stats\n");
+        printf("13. Exit\n");
+
+        printf("Choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: {
+                int s;
+                printf("Enter steps: ");
+                scanf("%d", &s);
+                if (s < 0) { printf("Steps cannot be negative!\n"); break; }
+                fit.steps += s;
+                fit.caloriesBurned = calculateCaloriesBurned(fit.steps, user.weight);
+                printf("Steps updated: %d total (%.2f kcal burned)\n", fit.steps, fit.caloriesBurned);
+                break;
+            }
+
+            case 2: {
+                float c;
+                printf("Enter calories consumed (kcal): ");
+                scanf("%f", &c);
+                if (c < 0) { printf("Calories cannot be negative!\n"); break; }
+                fit.caloriesConsumed += c;
+                printf("Calories updated: %.2f kcal total\n", fit.caloriesConsumed);
+                break;
+            }
+
+            case 3: {
+                float w;
+                printf("Enter water intake (L): ");
+                scanf("%f", &w);
+                if (w < 0) { printf("Water intake cannot be negative!\n"); break; }
+                fit.waterIntake += w;
+                printf("Water intake updated: %.2f L total\n", fit.waterIntake);
+                break;
+            }
+
+            case 4: {
+                float sleep;
+                printf("Enter sleep hours: ");
+                scanf("%f", &sleep);
+                if (sleep < 0 || sleep > 24) { printf("Invalid sleep hours!\n"); break; }
+                fit.sleepHours += sleep;
+                printf("Sleep updated: %.2f hrs total\n", fit.sleepHours);
+                break;
+            }
+
+            case 5: {
+                int ex;
+                printf("Enter exercise minutes: ");
+                scanf("%d", &ex);
+                if (ex < 0) { printf("Exercise minutes cannot be negative!\n"); break; }
+                fit.exerciseMinutes += ex;
+                printf("Exercise updated: %d mins total\n", fit.exerciseMinutes);
+                break;
+            }
+
+            case 6:
+                displaySummary(user, fit);
+                break;
+
+            case 7:
+                saveToFile(user, fit);
+                break;
+
+            case 8:
+                viewHistory();
+                break;
+
+            case 9:
+                resetData(&fit);
+                break;
+
+            case 10:
+                setGoals(&stepGoal, &waterGoal);
+                break;
+
+            case 11:
+                checkGoals(fit, stepGoal, waterGoal);
+                break;
+
+            case 12:
+                weeklyStats();
+                break;
+
+            case 13:
+                printf("Goodbye, %s! Stay healthy!\n", user.name);
+                return 0;
+
+            default:
+                printf("Invalid choice! Please enter 1-13.\n");
+        }
+    }
+
+    return 0;
+}
